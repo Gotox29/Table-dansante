@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid black
+        }
+        label:not(.checkbox) * {
+            width: 90%;
+            margin: 5px;
+        }
+        h3 {
+            font-size: 1em;
+            margin: 0 .5px;
+        }
+        #controle {
+            margin: 5px;
+            min-width: 250px;
+            max-width: 250px;
+        }
+        #afficheur {
+            margin: 5px 0
+        }
+        .flex {
+            display: flex;
+            flex-direction: row;
+        }
+        .flex-row {
+            flex-direction: row;
+        }
+        .flex-column {
+            flex-direction: column;
+        }
+        .full {
+            flex: 1;
+        }
+        .collapse {
+            display: none;
+        }
+        .checkbox {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        button {
+            padding: 3px 0;
+            border-radius: 5px;
+            margin: 1px;
+        }
+        #liste {
+            height: 190px;
+            padding: 0 5px;
+            overflow-x: auto;
+            margin: 3px;
+        }
+        .item {
+            position: relative;
+            padding: 0 5px;
+        }
+        .item {
+            list-style: none;
+        }
+        .drop {
+            width: 100%;
+            z-index: 2;
+            display: flex;
+        }
+        .drop button {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="flex flex-row">
+        <div class="flex flex-column">
+            <canvas id="canvas" width="900" height="900">
+                <p>Désolé, votre navigateur ne supporte pas Canvas.</p>
+            </canvas>
+            <p id="afficheur" class="collapse">Table de <span id="affTable"></span> modulo <span id="affNb"></span>.</p>
+        </div>
+        <div id="controle" class="flex flex-column">
+            <div class="flex flex-column">
+                <fieldset>
+                    <legend>Methode de calcul :</legend>
+                    <label for="methode">
+                        Changer la méthode :
+                        <select name="methode" id="methode">
+                            <option value="addition">addition</option>
+                            <option value="soustraction">soustraction</option>
+                            <option value="multiplicateur">multiplicateur</option>
+                            <option value="division">division</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Table :</legend>
+                    <label for="multiplicateur">
+                        Table de départ :
+                        <input type="number" name="multiplicateur" id="multiplicateur" value="993">
+                    </label>
+                    <label for="incremente-multiplicateur">
+                        Pas d'incrémentation
+                        <input type="number" name="direction-multiplicateur" id="incremente-multiplicateur" value="0.01" step="0.01" >
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Modulo  :</legend>
+                    <label for="moduloDepart">
+                        Modulo de depart (nombre de point):
+                        <input type="number" name="moduloDepart" id="moduloDepart" value="250" >
+                    </label>
+                    
+                    <div>
+                        <label class="checkbox" for="incremente-modulo">
+                            Incrémenté modulo
+                            <input type="checkbox" name="direction-modulo" id="incremente-modulo" value="add" checked>
+                        </label>
+                        <label class="checkbox" for="decremente-modulo">
+                            Décrémenté modulo
+                            <input type="checkbox" name="direction-modulo" id="decremente-modulo" value="sous">
+                        </label>
+                        
+                    </div>
+                </fieldset>
+                <label for="vitesse">
+                    Vitesse (en miliseconde) :
+                    <div class="flex">
+                        <input type="number" name="vitesse" id="vitesse" value="200">
+                    </div>
+                </label>
+                <button id="changer" class="collapse">Mettre à jour</button>
+                <label class="checkbox" for="checkbox-couleur">
+                    Couleur personnalisé :
+                    <input type="checkbox" name="checkbox-couleur" id="checkbox-couleur" checked>
+                    <input type="color" name="couleur" id="couleur" value="black">
+                </label>
+                <label class="checkbox" for="couleur-aleatoire">
+                    Couleurs aléatoires :
+                    <input type="checkbox" name="couleur-aleatoire" id="couleur-aleatoire">
+                </label>
+                </label>
+                <label class="checkbox" for="couleur-crayon">
+                    Dégradé noir et blanc :
+                    <input type="checkbox" name="couleur-crayon" id="couleur-crayon">
+                </label>
+                <label class="checkbox" for="couleur-progressive">
+                    Couleurs progréssives :
+                    <input type="checkbox" name="couleur-progressive" id="couleur-progressive">
+                </label>
+                <button id="start">Lancer animation</button>
+                <button id="stop">Stop</button>
+                <button id="restart">Reprendre</button>
+                <div class="flex">
+                    <button id="prec" class="full">Précédent</button>
+                    <button id="suiv" class="full">suivant</button>
+                </div>
+                <button id="clear">Effacer</button>
+            </div>
+            <div class="flex flex-column">
+                <h3>Sauvegarder vos meilleurs configurations :</h1>
+                <button id="save">Sauvegarder</button>
+                <button id="getAll">Tout voir</button>
+                <label class="checkbox" for="repetition">
+                    Lire en boucle : 
+                    <input type="checkbox" name="repetition" id="repetition">
+                </label>
+                <ul id="liste">
+                </ul>
+                <button id="delAll">Tout effacer</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
