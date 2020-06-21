@@ -188,6 +188,7 @@ class CanvasDansingTable {
             } else {
                 point2 = new Point(this.positionX(arrive), this.positionY(arrive));
             }
+            this.ctx.lineWidth = 0.3;
             // console.log(this.positionX(arrive));
             // console.log(this.positionY(arrive));
             // console.log(this.positionX(arrive), point2.x);
@@ -275,7 +276,6 @@ class Control {
         }
         if(this.incrementeModulo && this.etat) {
             this.moduloActuel++;
-            //parseFloat(this.moduloActuel + 0.01).toFixed(2);
         } else if(this.decrementeModulo && this.etat) {
             this.moduloActuel--;
         }
@@ -440,11 +440,10 @@ document.getElementById('couleur-aleatoire').addEventListener('click',checkboxAl
 document.getElementById('couleur-progressive').addEventListener('click',checkboxAlterne('checkbox-couleur', 'checkbox-couleur', 'couleur-aleatoire', 'couleur-crayon'));
 document.getElementById('couleur-crayon').addEventListener('click',checkboxAlterne('checkbox-couleur', 'checkbox-couleur', 'couleur-aleatoire', 'couleur-progressive'));
 
-// document.getElementById('incremente-multiplicateur').addEventListener('click', checkboxAlterne(false, 'decremente-multiplicateur'));
-// document.getElementById('decremente-multiplicateur').addEventListener('click', checkboxAlterne(false, 'incremente-multiplicateur'));
 document.getElementById('incremente-modulo').addEventListener('click', checkboxAlterne(false, 'decremente-modulo'));
 document.getElementById('decremente-modulo').addEventListener('click', checkboxAlterne(false, 'incremente-modulo'));
 
+let interval;
 const control = new Control();
 const memoire = new Memoires(control);
 
@@ -458,7 +457,6 @@ memoire.add(1003,5010);
 memoire.add(1056,5067);
 
 
-let interval;
 function off() {
     if(typeof interval !== 'undefined') clearInterval(interval);
     control.stop();
@@ -548,7 +546,6 @@ document.getElementById('getAll').addEventListener('click', () => {
             if(buttons.length >= current + 1) {
                 control.collapse(true);
                 let id = buttons[current++].parentElement.parentElement.getAttribute('id');
-                // console.log(buttons[current++].parentElement.parentElement.getAttribute('id'));
                 memoire.load(id);
             } else {
                 if(repetition) {
